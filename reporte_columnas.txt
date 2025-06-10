@@ -1,0 +1,402 @@
+🔹 **Columna:** BaniosCompletosSotano
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+BaniosCompletosSotano
+0    856
+1    588
+2     15
+3      1
+
+🔹 **Columna:** MediosBaniosSotano
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+MediosBaniosSotano
+0    1378
+1      80
+2       2
+
+🔹 **Columna:** BaniosCompletos
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+BaniosCompletos
+2    768
+1    650
+3     33
+0      9
+
+🔹 **Columna:** MediosBanios
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+MediosBanios
+0    913
+1    535
+2     12
+
+🔹 **Columna:** Dormitorios
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+Dormitorios
+3    804
+2    358
+4    213
+1     50
+5     21
+6      7
+0      6
+8      1
+
+🔹 **Columna:** Cocinas
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+Cocinas
+1    1392
+2      65
+3       2
+0       1
+
+🔹 **Columna:** CalidadCocina
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CalidadCocina
+TA    735
+Gd    586
+Ex    100
+Fa     39
+
+🔹 **Columna:** TotalHabitaciones
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+TotalHabitaciones
+6     402
+7     329
+5     275
+8     187
+4      97
+9      75
+10     47
+11     18
+3      17
+12     11
+2       1
+14      1
+
+🔹 **Columna:** Funcionamiento
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+Funcionamiento
+Typ     1360
+Min2      34
+Min1      31
+Mod       15
+Maj1      14
+Maj2       5
+Sev        1
+
+🔹 **Columna:** Chimeneas
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+Chimeneas
+0    690
+1    650
+2    115
+3      5
+
+🔹 **Columna:** CalidadChimenea
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CalidadChimenea
+Gd    380
+TA    313
+Fa     33
+Ex     24
+Po     20
+
+🔹 **Columna:** TipoGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+TipoGarage
+Attchd     870
+Detchd     387
+BuiltIn     88
+Basment     19
+CarPort      9
+2Types       6
+
+🔹 **Columna:** AnioGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: float64
+   - Estadísticas básicas:
+count    1379.000000
+mean     1978.506164
+std        24.689725
+min      1900.000000
+25%      1961.000000
+50%      1980.000000
+75%      2002.000000
+max      2010.000000
+
+🔹 **Columna:** TerminacionGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+TerminacionGarage
+Unf    605
+RFn    422
+Fin    352
+
+🔹 **Columna:** CapacidadGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+CapacidadGarage
+2    824
+1    369
+3    181
+0     81
+4      5
+
+🔹 **Columna:** AreaGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean      472.980137
+std       213.804841
+min         0.000000
+25%       334.500000
+50%       480.000000
+75%       576.000000
+max      1418.000000
+
+🔹 **Columna:** CalidadGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CalidadGarage
+TA    1311
+Fa      48
+Gd      14
+Ex       3
+Po       3
+
+🔹 **Columna:** CondicionGarage
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CondicionGarage
+TA    1326
+Fa      35
+Gd       9
+Po       7
+Ex       2
+
+🔹 **Columna:** EntradaPavimentada
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+EntradaPavimentada
+Y    1340
+N      90
+P      30
+
+🔹 **Columna:** AreaDeckMadera
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean       94.244521
+std       125.338794
+min         0.000000
+25%         0.000000
+50%         0.000000
+75%       168.000000
+max       857.000000
+
+🔹 **Columna:** AreaPorcheAbierto
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean       46.660274
+std        66.256028
+min         0.000000
+25%         0.000000
+50%        25.000000
+75%        68.000000
+max       547.000000
+
+🔹 **Columna:** AreaPorcheCerrado
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean       21.954110
+std        61.119149
+min         0.000000
+25%         0.000000
+50%         0.000000
+75%         0.000000
+max       552.000000
+
+🔹 **Columna:** AreaPorche3Estaciones
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean        3.409589
+std        29.317331
+min         0.000000
+25%         0.000000
+50%         0.000000
+75%         0.000000
+max       508.000000
+
+🔹 **Columna:** AreaPorcheMosquitero
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count    1460.000000
+mean       15.060959
+std        55.757415
+min         0.000000
+25%         0.000000
+50%         0.000000
+75%         0.000000
+max       480.000000
+
+🔹 **Columna:** AreaPiscina
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+AreaPiscina
+0      1453
+512       1
+648       1
+576       1
+555       1
+480       1
+519       1
+738       1
+
+🔹 **Columna:** CalidadPiscina
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CalidadPiscina
+Gd    3
+Ex    2
+Fa    2
+
+🔹 **Columna:** Cerca
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+Cerca
+MnPrv    157
+GdPrv     59
+GdWo      54
+MnWw      11
+
+🔹 **Columna:** CaracteristicasMiscelaneas
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+CaracteristicasMiscelaneas
+Shed    49
+Gar2     2
+Othr     2
+TenC     1
+
+🔹 **Columna:** ValorMiscelaneo
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count     1460.000000
+mean        43.489041
+std        496.123024
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.000000
+max      15500.000000
+
+🔹 **Columna:** MesVenta
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+MesVenta
+6     253
+7     234
+5     204
+4     141
+8     122
+3     106
+10     89
+11     79
+9      63
+12     59
+1      58
+2      52
+
+🔹 **Columna:** AnioVenta
+   - Descripción: Descripción no especificada
+   - Tipo de dato: int64
+   - Conteo de valores:
+AnioVenta
+2009    338
+2007    329
+2006    314
+2008    304
+2010    175
+
+🔹 **Columna:** TipoVenta
+   - Descripción: Descripción no especificada
+   - Tipo de dato: object
+   - Conteo de valores:
+TipoVenta
+WD       1267
+New       122
+COD        43
+ConLD       9
+ConLI       5
+ConLw       5
+CWD         4
+Oth         3
+Con         2
+
+🔹 **Columna:** CondicionVenta
+   - Descripción: Condición de la venta
+   - Tipo de dato: object
+   - Conteo de valores:
+CondicionVenta
+Normal     1198
+Partial     125
+Abnorml     101
+Family       20
+Alloca       12
+AdjLand       4
+
+🔹 **Columna:** PrecioVenta
+   - Descripción: Precio final de venta de la propiedad
+   - Tipo de dato: int64
+   - Estadísticas básicas:
+count      1460.000000
+mean     180921.195890
+std       79442.502883
+min       34900.000000
+25%      129975.000000
+50%      163000.000000
+75%      214000.000000
+max      755000.000000
