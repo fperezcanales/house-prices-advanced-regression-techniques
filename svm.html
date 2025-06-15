@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Máquinas de Vectores de Soporte (SVM)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .text-accent {
+            color: #F472B6;
+        }
+        .bg-accent {
+            background-color: #F472B6;
+        }
+        .border-accent {
+            border-color: #F472B6;
+        }
+        .kpi-box {
+            background-color: #00449E;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .kpi-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .kpi-label {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        .flowchart-node {
+            border: 2px solid #3182CE;
+            background-color: #EBF8FF;
+            color: #00449E;
+        }
+        .flowchart-arrow {
+            color: #3182CE;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .pro-con-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .pro-con-list li::before {
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            font-size: 1.25rem;
+        }
+        .pro-list li::before {
+            content: '👍';
+            color: #3182CE;
+        }
+        .con-list li::before {
+            content: '👎';
+            color: #F472B6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#00449E] mb-4">Máquinas de Vectores de Soporte (SVM)</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Una exploración visual de uno de los algoritmos de clasificación más potentes y robustos del aprendizaje automático.</p>
+        </header>
+
+        <main class="space-y-16">
+            <section id="intuition" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-4 text-center">La Intuición Clave: Maximizando el Margen</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                    El objetivo de SVM no es solo separar clases, sino hacerlo con la mayor "calle" o margen de separación posible. Este margen se define por los puntos más cercanos de cada clase, llamados <strong class="text-accent">Vectores de Soporte</strong>. Un margen más amplio conduce a una mejor generalización y robustez ante datos nuevos.
+                </p>
+                <div class="w-full max-w-2xl mx-auto p-4 flex flex-col items-center justify-center bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+                    <div class="relative w-full h-64 md:h-80">
+                        <div class="absolute w-full h-px bg-gray-400 top-1/2 left-0 transform -translate-y-1/2"></div>
+                        <div class="absolute w-full h-px bg-[#63B3ED] border-dashed border-t-2 border-[#63B3ED] top-1/4 left-0 transform -translate-y-1/2"></div>
+                        <div class="absolute w-full h-px bg-[#63B3ED] border-dashed border-t-2 border-[#63B3ED] top-3/4 left-0 transform -translate-y-1/2"></div>
+
+                        <div class="absolute" style="top: 15%; left: 20%;"><span class="text-3xl">🔵</span></div>
+                        <div class="absolute" style="top: 25%; left: 10%;"><span class="text-3xl text-accent font-bold">🔵</span></div>
+                        <div class="absolute" style="top: 35%; left: 30%;"><span class="text-3xl">🔵</span></div>
+                        
+                        <div class="absolute" style="top: 65%; left: 70%;"><span class="text-3xl">❎</span></div>
+                        <div class="absolute" style="top: 75%; left: 85%;"><span class="text-3xl text-accent font-bold">❎</span></div>
+                        <div class="absolute" style="top: 80%; left: 60%;"><span class="text-3xl">❎</span></div>
+
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 bg-white px-2">
+                            <span class="text-sm font-semibold text-[#00449E]">Hiperplano Óptimo</span>
+                        </div>
+                        <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 bg-white px-2">
+                            <span class="text-sm font-semibold text-[#3182CE]">Margen</span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-500 text-center"><strong class="text-accent">Puntos en negrita</strong> son los Vectores de Soporte que definen el margen.</p>
+                </div>
+            </section>
+            
+            <section id="tradeoff" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-2 text-center">El Dilema: Regularización con el Parámetro 'C'</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Los datos reales rara vez son perfectos. El hiperparámetro <strong class="text-accent">'C'</strong> controla el balance entre maximizar el margen y minimizar los errores de clasificación. Es el dial que ajusta el equilibrio entre sesgo y varianza.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="chart-container max-w-md">
+                            <canvas id="cParamChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-gray-700 space-y-4">
+                        <div>
+                            <h3 class="font-bold text-xl text-[#0064C8]">C Pequeño (Más Regularización)</h3>
+                            <p>Prioriza un <strong class="text-accent">margen amplio</strong>, incluso si eso significa clasificar incorrectamente algunos puntos. El modelo es más simple y puede subajustarse (alto sesgo, baja varianza).</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-[#00449E]">C Grande (Menos Regularización)</h3>
+                            <p>Impone una alta penalización a los errores, buscando clasificar cada punto correctamente. Esto lleva a un <strong class="text-accent">margen estrecho</strong>. El modelo es más complejo y corre el riesgo de sobreajustarse (bajo sesgo, alta varianza).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kernel-trick" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-4 text-center">El "Truco" Mágico: El Poder de los Kernels</h2>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                    ¿Qué pasa si los datos no se pueden separar con una línea recta? El <strong class="text-accent">truco del kernel</strong> mapea los datos a una dimensión superior donde sí son linealmente separables, ¡todo sin el coste computacional de realizar la transformación explícitamente!
+                </p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                    <div class="text-center p-4 flowchart-node rounded-lg">
+                        <h3 class="font-semibold text-lg">Datos no Lineales</h3>
+                        <p class="text-sm">En el espacio original</p>
+                        <div class="relative w-24 h-24 mt-2 border-2 border-dashed border-gray-400 rounded-full mx-auto">
+                           <span class="absolute text-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">🔵</span>
+                           <span class="absolute text-xl top-2 left-1/2 -translate-x-1/2">❎</span>
+                           <span class="absolute text-xl bottom-2 left-1/2 -translate-x-1/2">❎</span>
+                           <span class="absolute text-xl top-1/2 left-2 -translate-y-1/2">❎</span>
+                           <span class="absolute text-xl top-1/2 right-2 -translate-y-1/2">❎</span>
+                        </div>
+                    </div>
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center p-4 bg-accent text-white rounded-lg shadow-md">
+                        <h3 class="font-semibold text-lg">Función Kernel</h3>
+                        <p class="text-sm">(ej. RBF, Polinomial)</p>
+                        <p class="text-4xl mt-4">🚀</p>
+                    </div>
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center p-4 flowchart-node rounded-lg">
+                        <h3 class="font-semibold text-lg">Datos Linealmente Separables</h3>
+                        <p class="text-sm">En una dimensión superior</p>
+                         <div class="relative w-24 h-24 mt-2 border-2 border-dashed border-gray-400 mx-auto">
+                           <div class="absolute w-full h-px bg-gray-400 top-1/2 left-0"></div>
+                           <span class="absolute text-xl top-1/4 left-1/4">❎</span>
+                           <span class="absolute text-xl top-1/4 right-1/4">❎</span>
+                           <span class="absolute text-xl bottom-1/4 left-1/4">🔵</span>
+                           <span class="absolute text-xl bottom-1/4 right-1/4">🔵</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kernels" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-[#00449E] mb-2 text-center">Eligiendo la Herramienta Adecuada: Kernels Populares</h2>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">La elección del kernel es crucial y depende de la naturaleza de los datos. Cada kernel tiene sus propias fortalezas y parámetros específicos que ajustar.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-[#0064C8] mb-4 text-center">Comparativa de Kernels</h3>
+                        <div class="chart-container max-w-lg">
+                            <canvas id="kernelRadarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-[#0064C8] mb-4 text-center">Frecuencia de Uso Típica</h3>
+                        <div class="chart-container max-w-lg">
+                            <canvas id="kernelDoughnutChart"></canvas>
+                        </div>
+                         <p class="text-center text-gray-500 mt-4">El kernel <strong class="text-accent">RBF</strong> es a menudo la elección por defecto debido a su flexibilidad y buen rendimiento en una amplia gama de problemas no lineales.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="hyperparameters" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-2 text-center">Afinando el Motor: La Relación C y Gamma</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Para el popular kernel RBF, el rendimiento depende de la interacción entre <strong class="text-accent">C</strong> (regularización) y <strong class="text-accent">Gamma</strong> (influencia de los puntos). Encontrar el par óptimo es clave para un modelo exitoso, a menudo logrado mediante búsqueda en cuadrícula (Grid Search).
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                    <div class="lg:col-span-3">
+                        <div class="chart-container">
+                            <canvas id="hyperparamScatterChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg text-[#0064C8]">Gamma Pequeño</h4>
+                            <p class="text-sm">Baja complejidad, riesgo de <strong class="text-accent">subajuste</strong>. El límite de decisión es muy suave.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-[#00449E]">Gamma Grande</h4>
+                            <p class="text-sm">Alta complejidad, riesgo de <strong class="text-accent">sobreajuste</strong>. El límite de decisión se ajusta demasiado a los datos de entrenamiento.</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 border-l-4 border-[#3182CE] rounded-r-lg">
+                            <p class="text-sm text-blue-800">La <strong class="text-[#00449E]">zona óptima</strong> (a menudo en el centro del gráfico logarítmico) equilibra la complejidad del modelo (gamma) con la tolerancia al error (C) para lograr la mejor generalización.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="applications" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-[#00449E] mb-2 text-center">SVM en Acción: Aplicaciones en el Mundo Real</h2>
+                 <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Gracias a su eficacia en espacios de alta dimensión y con datos no estructurados, las SVM son una herramienta valiosa en numerosos campos.</p>
+                <div class="chart-container" style="height: 450px;">
+                    <canvas id="applicationsBarChart"></canvas>
+                </div>
+                <p class="text-center text-gray-500 mt-4">La capacidad de las SVM para manejar miles de características las hace ideales para el análisis de texto (donde cada palabra puede ser una característica) y la bioinformática (análisis de genes).</p>
+            </section>
+
+            <section id="pro-cons" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-6 text-center">La Balanza: Ventajas y Desventajas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-[#0064C8] mb-4">✅ Fortalezas</h3>
+                        <ul class="space-y-3 text-gray-700 pro-list pro-con-list">
+                            <li><strong>Eficaz en alta dimensión:</strong> Funciona bien incluso cuando hay más características que muestras.</li>
+                            <li><strong>Eficiente en memoria:</strong> Utiliza solo un subconjunto de datos (vectores de soporte) para la decisión.</li>
+                            <li><strong>Robusto al sobreajuste:</strong> El principio de maximización de margen y la regularización le dan buena capacidad de generalización.</li>
+                            <li><strong>Versátil:</strong> El truco del kernel permite modelar relaciones complejas y no lineales.</li>
+                            <li><strong>Óptimo global garantizado:</strong> El problema de optimización es convexo, evitando óptimos locales.</li>
+                        </ul>
+                    </div>
+                     <div class="bg-pink-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-accent mb-4">❌ Debilidades</h3>
+                        <ul class="space-y-3 text-gray-700 con-list pro-con-list">
+                             <li><strong>Coste computacional:</strong> El entrenamiento puede ser muy lento en conjuntos de datos muy grandes.</li>
+                             <li><strong>Difícil de interpretar:</strong> Los modelos con kernels no lineales son considerados "cajas negras".</li>
+                             <li><strong>Elección del kernel:</strong> Seleccionar el kernel y sus hiperparámetros adecuados no es trivial y requiere experimentación.</li>
+                             <li><strong>No ofrece probabilidades:</strong> De forma nativa, no produce estimaciones de probabilidad.</li>
+                             <li><strong>Sensible al ruido:</strong> Un mal etiquetado en los vectores de soporte puede impactar significativamente el modelo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        <footer class="text-center mt-16 py-4 border-t border-gray-300">
+            <p class="text-gray-500 text-sm">Infografía generada basada en un análisis exhaustivo de Máquinas de Vectores de Soporte. Ni Mermaid JS ni SVG fueron utilizados en esta visualización.</p>
+        </footer>
+    </div>
+    
+    <script>
+        const brilliantBlues = {
+            deepBlue: '#00449E',
+            brightBlue: '#0064C8',
+            mediumBlue: '#3182CE',
+            lightBlue: '#63B3ED',
+            accentPink: '#F472B6',
+            gray: '#A0AEC0'
+        };
+
+        const chartDefaultOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#4A5568',
+                        font: {
+                            family: 'Inter',
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#4A5568' },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: { color: '#4A5568' },
+                    grid: { color: '#E2E8F0' }
+                }
+            }
+        };
+        
+        function wrapLabels(labels, maxLength = 16) {
+            return labels.map(label => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            });
+        }
+
+        new Chart(document.getElementById('cParamChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Ancho del Margen', 'Errores de Entrenamiento'],
+                datasets: [
+                    {
+                        label: 'C Pequeño',
+                        data: [90, 70],
+                        backgroundColor: brilliantBlues.mediumBlue,
+                        borderColor: brilliantBlues.brightBlue,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'C Grande',
+                        data: [30, 15],
+                        backgroundColor: brilliantBlues.accentPink,
+                        borderColor: '#D35A9A',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: { ...chartDefaultOptions }
+        });
+
+        new Chart(document.getElementById('kernelRadarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Velocidad', 'Complejidad', 'Interpretabilidad', 'Apto No-Lineal'],
+                datasets: [
+                    {
+                        label: 'Lineal',
+                        data: [9, 2, 9, 2],
+                        backgroundColor: 'rgba(49, 130, 206, 0.2)',
+                        borderColor: brilliantBlues.mediumBlue,
+                        pointBackgroundColor: brilliantBlues.mediumBlue,
+                    },
+                    {
+                        label: 'RBF (Gaussiano)',
+                        data: [5, 9, 3, 9],
+                         backgroundColor: 'rgba(244, 114, 182, 0.2)',
+                        borderColor: brilliantBlues.accentPink,
+                        pointBackgroundColor: brilliantBlues.accentPink,
+                    },
+                     {
+                        label: 'Polinomial',
+                        data: [4, 7, 4, 7],
+                         backgroundColor: 'rgba(0, 68, 158, 0.2)',
+                        borderColor: brilliantBlues.deepBlue,
+                        pointBackgroundColor: brilliantBlues.deepBlue,
+                    }
+                ]
+            },
+            options: { 
+                ...chartDefaultOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: '#E2E8F0' },
+                        grid: { color: '#E2E8F0' },
+                        pointLabels: {
+                            color: '#4A5568',
+                            font: { size: 12, family: 'Inter' }
+                        },
+                        ticks: {
+                            color: '#4A5568',
+                            backdropColor: 'rgba(255, 255, 255, 0.75)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('kernelDoughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['RBF (Gaussiano)', 'Lineal', 'Polinomial', 'Otros'],
+                datasets: [{
+                    label: 'Frecuencia de Uso',
+                    data: [70, 20, 8, 2],
+                    backgroundColor: [
+                        brilliantBlues.accentPink,
+                        brilliantBlues.mediumBlue,
+                        brilliantBlues.deepBlue,
+                        brilliantBlues.gray
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...chartDefaultOptions,
+                scales: { x: { display: false }, y: { display: false } }
+            }
+        });
+        
+        const scatterData = {
+            datasets: [{
+                label: 'Alto Rendimiento',
+                data: Array.from({length: 15}, () => ({
+                    x: Math.pow(10, Math.random() * 4 - 1),
+                    y: Math.pow(10, Math.random() * 3 - 2),
+                })),
+                backgroundColor: brilliantBlues.mediumBlue
+            }, {
+                label: 'Bajo Rendimiento (Sobreajuste)',
+                data: Array.from({length: 10}, () => ({
+                    x: Math.pow(10, Math.random() * 2 + 2), 
+                    y: Math.pow(10, Math.random() * 3 + 0.5),
+                })),
+                backgroundColor: 'rgba(244, 114, 182, 0.7)'
+            }, {
+                 label: 'Bajo Rendimiento (Subajuste)',
+                data: Array.from({length: 10}, () => ({
+                    x: Math.pow(10, Math.random() * 2 - 2),
+                    y: Math.pow(10, Math.random() * 2 - 4),
+                })),
+                backgroundColor: brilliantBlues.gray
+            }]
+        };
+
+        new Chart(document.getElementById('hyperparamScatterChart'), {
+            type: 'scatter',
+            data: scatterData,
+            options: {
+                ...chartDefaultOptions,
+                 scales: {
+                    x: {
+                        type: 'logarithmic',
+                        position: 'bottom',
+                        title: { display: true, text: 'Parámetro C (Coste)', color: brilliantBlues.deepBlue, font: { weight: 'bold' } }
+                    },
+                    y: {
+                        type: 'logarithmic',
+                        title: { display: true, text: 'Parámetro Gamma', color: brilliantBlues.deepBlue, font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+        
+        const appLabels = ['Procesamiento de Lenguaje Natural', 'Bioinformática (Clasificación de Genes)', 'Reconocimiento de Imágenes', 'Análisis Financiero y de Riesgo', 'Detección de Anomalías', 'Procesamiento de Señales'];
+        new Chart(document.getElementById('applicationsBarChart'), {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(appLabels),
+                datasets: [{
+                    label: 'Relevancia de Aplicación de SVM',
+                    data: [92, 88, 75, 68, 60, 52],
+                    backgroundColor: [
+                        brilliantBlues.deepBlue, 
+                        brilliantBlues.brightBlue, 
+                        brilliantBlues.mediumBlue,
+                        brilliantBlues.lightBlue,
+                        brilliantBlues.gray,
+                        '#CBD5E0'
+                    ],
+                    borderColor: brilliantBlues.deepBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...chartDefaultOptions,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                         title: { display: true, text: 'Índice de Relevancia (Estimado)', color: brilliantBlues.deepBlue, font: { weight: 'bold' } }
+                    },
+                    y: {
+                        ticks: {
+                            font: { size: 12 }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
